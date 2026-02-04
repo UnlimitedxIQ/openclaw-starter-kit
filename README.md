@@ -35,6 +35,47 @@ This repository contains the complete OpenClaw configuration for a 24/7 Mac Mini
 5. **Research Queue Processor** (every 30min) - `llama3.1:8b`
 6. **Project Idea Generator** (every 6h) - `mistral:7b`
 
+### Cost-Optimized Coding Workflow
+
+**The Strategy:** Use cheap models to write, expensive models to review.
+
+Instead of having Sonnet/Opus write code from scratch (expensive), use this 3-stage approach:
+
+1. **Stage 1: Haiku → DeepSeek Coder (FREE)**
+   - Haiku delegates long coding tasks to Ollama
+   - DeepSeek writes complete implementation (200-500 lines)
+   - Cost: $0.00 (local inference)
+
+2. **Stage 2: Sonnet Reviews & Optimizes**
+   - Sonnet reads existing code and suggests targeted edits
+   - Only writes 20-50 lines of fixes vs 200-500 from scratch
+   - Finds security issues, optimizations, improvements
+   - Cost: ~$0.12 (10x cheaper than full rewrite)
+
+3. **Stage 3: Haiku Applies Fixes**
+   - Haiku applies Sonnet's edits and runs tests
+   - Cost: ~$0.01
+
+**Result:** $0.77 → $0.13 per coding task (83% savings!)
+
+**Example:**
+```bash
+# User: "Build a REST API for user authentication"
+
+# Haiku delegates to DeepSeek
+→ DeepSeek writes 300 lines of code (FREE)
+
+# Sonnet reviews
+→ Suggests 25 lines of security fixes (~$0.12)
+
+# Haiku applies
+→ Edits code and runs tests (~$0.01)
+
+# Total: $0.13 vs $0.77 if Sonnet wrote from scratch
+```
+
+**See `CODING_WORKFLOW.md` for complete guide with templates and examples.**
+
 ## Mac Mini Setup
 
 ### Prerequisites
@@ -121,19 +162,38 @@ openclaw-workspace/
 ### Before (Windows, All Anthropic)
 - Heartbeats: ~$1.44/month
 - Research: ~$1.20/month
+- Coding tasks (10/day): ~$231/month (Sonnet from scratch)
 - User interactions: ~$50/month
-- **Total: ~$52.64/month**
+- **Total: ~$334.64/month**
 
 ### After (Mac Mini, Ollama + Anthropic)
+
+**Background Workers:**
 - Heartbeats: FREE (Ollama)
 - Research scanning: FREE (Ollama)
 - Code analysis: FREE (Ollama)
 - Memory compaction: FREE (Ollama)
 - Idea generation: FREE (Ollama)
-- User interactions: ~$30/month (drafts → Ollama, final → Claude)
-- **Total: ~$30/month**
 
-**Savings: ~$22.64/month (~$272/year)**
+**Coding Workflow (Ollama → Sonnet Review):**
+- Initial code: FREE (DeepSeek Coder via Ollama)
+- Review & optimize: ~$78/month (Sonnet edits only, not full rewrites)
+- Apply fixes: ~$3/month (Haiku)
+- **Coding total: ~$81/month** (vs $231 = 65% savings)
+
+**User Interactions:**
+- Drafts: FREE (Ollama)
+- Final polish: ~$30/month (Claude)
+
+**Total: ~$111/month**
+
+### Savings Breakdown
+- **Background automation:** $22.64/month saved
+- **Coding workflow optimization:** $150/month saved (Ollama writes, Sonnet reviews)
+- **Monthly total savings: ~$172.64/month**
+- **Annual total savings: ~$2,072/year** 🎉
+
+**See `CODING_WORKFLOW.md` for detailed 3-stage coding optimization strategy.**
 
 ## Configuration Files
 

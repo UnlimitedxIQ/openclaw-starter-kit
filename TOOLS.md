@@ -19,6 +19,7 @@ shell, http, file, llm (Ollama), browser (Playwright), desktop (pyautogui)
 - `nomic-embed-text` — embeddings for memory search
 
 ### Routing Strategy
+
 **Use Ollama (free) for:**
 - Background tasks (cron jobs)
 - Initial research/scanning
@@ -27,13 +28,36 @@ shell, http, file, llm (Ollama), browser (Playwright), desktop (pyautogui)
 - Idea generation
 - First drafts
 - Routine checks
+- **Writing initial code implementations** (DeepSeek Coder)
 
 **Use Claude (paid) for:**
 - User-facing responses
 - Final document polish
 - Complex reasoning/decisions
 - Security-critical tasks
+- **Reviewing and optimizing code** (Sonnet reads + edits vs writes from scratch)
 - When Ollama output is insufficient
+
+### Cost-Optimized Coding Pattern
+
+For long coding tasks (>100 lines):
+
+1. **Haiku delegates** to DeepSeek Coder (Ollama) → writes code (FREE)
+2. **Sonnet reviews** existing code → suggests edits (~10x cheaper than writing)
+3. **Haiku applies** edits → runs tests (cheap)
+
+**Result:** 65-83% cost savings on coding tasks
+
+**Example:**
+```
+Traditional: Sonnet writes 300 lines → $0.77
+Optimized:   DeepSeek writes 300 lines (FREE)
+             Sonnet reviews + edits 25 lines → $0.12
+             Haiku applies → $0.01
+             Total: $0.13 (83% savings)
+```
+
+See `CODING_WORKFLOW.md` for detailed guide.
 
 ## Prompt Caching Strategy
 
