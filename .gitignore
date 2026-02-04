@@ -62,3 +62,21 @@ test-*.json
 # Temporary files
 scratch/
 sandbox/
+
+# Personal configuration files (use .example templates instead)
+CONSTITUTION.md
+USER.md
+MEMORY.md
+STARTUP.md
+memory/*.md
+!memory/README.md
+
+# Personal data directories
+contacts/
+twilio-elevenlabs-voicebot/
+gmail-code-reader/
+gateway-agent/
+vercel-dashboard/
+vlog/
+web-automation/
+amendment-t/

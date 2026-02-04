@@ -1,0 +1,75 @@
+# Memory Template
+
+**Instructions:** Copy this file to `MEMORY.md` to start your memory system.
+
+```bash
+cp MEMORY.md.example MEMORY.md
+```
+
+The agent will update `MEMORY.md` with learnings, patterns, and important information.
+
+---
+
+## How Memory Works
+
+This file contains:
+- **Key learnings** from completed tasks
+- **Patterns discovered** during operation
+- **Important decisions** and their reasoning
+- **Frequently used commands** and workflows
+- **Common issues** and their solutions
+
+The **Daily Memory Compaction** worker (runs at 11pm) automatically:
+1. Reads daily memory logs from `memory/YYYY-MM-DD.md`
+2. Extracts key insights
+3. Updates this file with important learnings
+4. Keeps file under 200 lines (removes outdated entries)
+
+---
+
+## Current Learnings
+
+### Code Patterns
+
+*The agent will populate this as it learns your coding style*
+
+### Problem Solutions
+
+*The agent will add solutions to problems it encounters*
+
+### Workflow Optimizations
+
+*The agent will record efficiency improvements*
+
+### Important Commands
+
+*The agent will track frequently used commands*
+
+---
+
+## Project-Specific Knowledge
+
+### Project 1: [Name]
+
+*The agent will add project-specific learnings*
+
+### Project 2: [Name]
+
+*The agent will add project-specific learnings*
+
+---
+
+## Common Issues & Fixes
+
+*The agent will document recurring problems and solutions*
+
+---
+
+## Notes
+
+- This file is automatically updated by the memory compaction worker
+- Keep entries concise (1-2 sentences each)
+- Old/redundant entries are automatically removed
+- Daily logs are in `memory/YYYY-MM-DD.md`
+
+**Let the agent populate this file as you work together!**

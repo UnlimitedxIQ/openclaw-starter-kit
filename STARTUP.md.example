@@ -1,0 +1,80 @@
+# Startup Configuration Template
+
+**Instructions:** Copy this file to `STARTUP.md` and customize.
+
+```bash
+cp STARTUP.md.example STARTUP.md
+```
+
+---
+
+## Boot Sequence
+
+When OpenClaw starts, it will:
+
+1. **Load Configuration**
+   - Read `CONSTITUTION.md` (your rules)
+   - Read `USER.md` (your profile)
+   - Read `MEMORY.md` (accumulated knowledge)
+
+2. **Initialize Systems**
+   - Start Ollama connection
+   - Load background workers
+   - Initialize cron jobs
+
+3. **Daily Startup Message**
+   - Check for pending tasks
+   - Review yesterday's progress
+   - Identify priorities
+
+---
+
+## Startup Greeting
+
+**Customize your greeting below:**
+
+```
+Good morning, YOUR_NAME!
+
+Today is {DATE}. Here's your daily summary:
+
+✅ System Status: All operational
+🤖 Background Workers: 6 active
+📊 Recent Activity: {SUMMARY}
+🎯 Today's Priorities:
+   1. {PRIORITY_1}
+   2. {PRIORITY_2}
+   3. {PRIORITY_3}
+
+Ready to assist!
+```
+
+---
+
+## Startup Checks
+
+**Automatic checks on boot:**
+
+- [ ] Ollama running and models loaded
+- [ ] API keys configured
+- [ ] Cron jobs scheduled
+- [ ] Memory system functional
+- [ ] Background workers active
+- [ ] Budget within limits
+
+---
+
+## Custom Startup Tasks
+
+**Add your own startup tasks:**
+
+```javascript
+// Example: Check calendar
+// Example: Review inbox
+// Example: Generate daily summary
+// Example: Check pending research tasks
+```
+
+---
+
+**Customize this file for your perfect startup experience!**

@@ -1,0 +1,103 @@
+# User Profile Template
+
+**Instructions:** Copy this file to `USER.md` and customize with your information.
+
+```bash
+cp USER.md.example USER.md
+# Then edit USER.md with your details
+```
+
+The `.gitignore` file protects `USER.md` from being committed.
+
+---
+
+## Personal Information
+
+**Name:** YOUR_NAME
+**Role:** [Your role/profession]
+**Location:** [Your location/timezone]
+**Contact:** [Your preferred contact method]
+
+---
+
+## Work Context
+
+**Primary Focus:**
+- [What you're working on]
+- [Your main projects]
+- [Your goals]
+
+**Current Projects:**
+1. [Project 1]
+2. [Project 2]
+3. [Project 3]
+
+**Skills:**
+- [Skill 1]
+- [Skill 2]
+- [Skill 3]
+
+---
+
+## Preferences
+
+**Communication Style:**
+- [e.g., Direct and concise]
+- [e.g., Technical details appreciated]
+- [e.g., Prefer examples over theory]
+
+**Working Hours:**
+- [Your typical schedule]
+- [Your timezone]
+- [Preferred notification times]
+
+**Priorities:**
+1. [Priority 1]
+2. [Priority 2]
+3. [Priority 3]
+
+---
+
+## Tools & Systems
+
+**Development Environment:**
+- OS: [Windows/macOS/Linux]
+- Editor: [VS Code/Vim/etc.]
+- Shell: [bash/zsh/PowerShell]
+
+**Services:**
+- Email: [Provider]
+- Calendar: [Provider]
+- Notes: [Provider]
+
+---
+
+## Goals
+
+**Short-term (1-3 months):**
+- [Goal 1]
+- [Goal 2]
+- [Goal 3]
+
+**Long-term (6-12 months):**
+- [Goal 1]
+- [Goal 2]
+- [Goal 3]
+
+---
+
+## Agent Instructions
+
+**How the agent should help:**
+- [Specific instruction 1]
+- [Specific instruction 2]
+- [Specific instruction 3]
+
+**What the agent should avoid:**
+- [Avoidance 1]
+- [Avoidance 2]
+- [Avoidance 3]
+
+---
+
+**Customize this file with your actual information!**
