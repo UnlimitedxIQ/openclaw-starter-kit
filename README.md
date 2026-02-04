@@ -1,333 +1,259 @@
-# OpenClaw Configuration - Mac Mini Migration
+# OpenClaw Starter Kit 🦞
 
-Private repository for OpenClaw configuration, workspace files, and automation setup.
+**Cost-optimized OpenClaw configuration for 24/7 operation with local Ollama models**
 
-## Overview
+Save **$2,000+/year** on AI costs by running background workers locally and using smart coding workflows.
 
-This repository contains the complete OpenClaw configuration for a 24/7 Mac Mini setup with local Ollama models handling background tasks.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-**Key Features:**
-- 🤖 Local Ollama models for free background processing
-- 📊 Automated research, code analysis, and memory management
-- 💰 ~40% cost savings vs cloud-only setup
-- 🔄 24/7 operation with cron-based automation
-- 🔒 Private git repository for easy deployment
+---
+
+## What Is This?
+
+A complete, production-ready OpenClaw configuration that runs AI automation 24/7 using:
+- **6 free background workers** powered by local Ollama models
+- **Cost-optimized coding workflow** (83% savings on code generation)
+- **Smart model routing** (use expensive models only when needed)
+
+Perfect for running on a Mac Mini, home server, or always-on machine.
+
+## Cost Savings
+
+**Traditional Approach (All Cloud AI):**
+- Background tasks: $23/month
+- Coding (10 tasks/day): $231/month
+- **Total: ~$284/month**
+
+**With This Setup:**
+- Background tasks: **FREE** (local Ollama)
+- Coding: $81/month (Ollama writes, Claude reviews)
+- **Total: ~$81/month**
+
+**Savings: $203/month = $2,436/year** 🎉
+
+## Features
+
+### 🤖 6 Free Background Workers
+1. **Heartbeat** (hourly) - System status checks
+2. **Money Research** (every 6h) - Find monetization opportunities
+3. **Code Analysis** (every 2h) - Review code for bugs and optimizations
+4. **Memory Compaction** (daily) - Summarize and organize learnings
+5. **Research Processor** (every 30min) - Process research tasks
+6. **Idea Generator** (every 6h) - Brainstorm project ideas
+
+### 💻 Smart Coding Workflow
+**3-stage optimization saves 83% on coding tasks:**
+1. **DeepSeek Coder** (Ollama) writes code - FREE
+2. **Claude Sonnet** reviews and optimizes - 10x cheaper than writing from scratch
+3. **Claude Haiku** applies fixes - minimal cost
+
+### 📊 Model Routing Strategy
+- **Local (Ollama - FREE):** Heartbeats, drafts, initial code, research scanning
+- **Cloud (Paid):** User-facing responses, code reviews, complex reasoning
+
+## Quick Start
+
+### Prerequisites
+- macOS 12+ (Monterey or later) or Linux
+- 16GB+ RAM (for running Ollama models)
+- ~15GB disk space (for Ollama models)
+- [Anthropic API key](https://console.anthropic.com/)
+- [OpenClaw](https://openclaw.com/) installed
+
+### Installation
+
+```bash
+# 1. Clone this repository
+git clone https://github.com/UnlimitedxIQ/openclaw-starter-kit.git
+cd openclaw-starter-kit
+
+# 2. Run setup script (installs Ollama, models, dependencies)
+chmod +x setup-mac.sh
+./setup-mac.sh
+
+# 3. Configure your personal files
+cp CONSTITUTION.md.example CONSTITUTION.md
+cp USER.md.example USER.md
+cp MEMORY.md.example MEMORY.md
+cp STARTUP.md.example STARTUP.md
+
+# Edit these files with your information
+nano CONSTITUTION.md  # Set your name and rules
+nano USER.md          # Set your profile
+
+# 4. Set API key
+export ANTHROPIC_API_KEY="your-key-here"
+echo 'export ANTHROPIC_API_KEY="your-key-here"' >> ~/.zshrc
+
+# 5. Copy OpenClaw configuration
+cp openclaw.json.example ~/.openclaw/openclaw.json
+# Edit paths for your system
+nano ~/.openclaw/openclaw.json
+
+# 6. Copy cron jobs
+mkdir -p ~/.openclaw/cron
+cp cron-jobs.json.example ~/.openclaw/cron/jobs.json
+# Edit paths for your system
+nano ~/.openclaw/cron/jobs.json
+
+# 7. Start OpenClaw
+openclaw gateway
+```
+
+### Verification
+
+```bash
+# Check Ollama models
+ollama list
+
+# Test a model
+ollama run llama3.2:3b "Hello!"
+
+# Check OpenClaw status
+openclaw status
+
+# View cron jobs
+openclaw cron list
+
+# Watch logs
+openclaw logs --follow
+```
+
+## Documentation
+
+- **[QUICKSTART.md](QUICKSTART.md)** - Fast setup commands
+- **[MIGRATION_GUIDE.md](MIGRATION_GUIDE.md)** - Detailed step-by-step guide
+- **[CODING_WORKFLOW.md](CODING_WORKFLOW.md)** - Cost-optimized coding strategy
+- **[IMPLEMENTATION_STATUS.md](IMPLEMENTATION_STATUS.md)** - Feature checklist
+- **[CONTRIBUTING.md](CONTRIBUTING.md)** - How to contribute
 
 ## Architecture
 
-### Model Routing Strategy
+### Model Selection
 
 | Task Type | Model | Speed | Cost |
 |-----------|-------|-------|------|
 | Heartbeats & Check-ins | `ollama/llama3.2:3b` | ~1-2s | FREE |
 | Research & Summarization | `ollama/llama3.1:8b` | ~3-5s | FREE |
-| Code Analysis/Generation | `ollama/deepseek-coder-v2:16b` | ~8-12s | FREE |
+| Code Generation | `ollama/deepseek-coder-v2:16b` | ~8-12s | FREE |
 | Quick Drafts/Ideas | `ollama/mistral:7b` | ~2-4s | FREE |
-| User-facing responses | `claude-haiku-4-5` | ~2-3s | $$ |
-| Complex reasoning | `claude-sonnet-4-5` | ~5-8s | $$$ |
+| User Responses | `claude-haiku-4-5` | ~2-3s | $$ |
+| Code Reviews | `claude-sonnet-4-5` | ~5-8s | $$$ |
+| Complex Reasoning | `claude-opus-4-5` | ~10-15s | $$$$ |
 
-### Background Workers
+### Cost-Optimized Coding
 
-1. **Heartbeat Check** (every 1h) - `llama3.2:3b`
-2. **Money Research Feeder** (every 6h) - `llama3.1:8b`
-3. **Code Analysis Worker** (every 2h) - `deepseek-coder-v2:16b`
-4. **Daily Memory Compaction** (daily 11pm) - `llama3.1:8b`
-5. **Research Queue Processor** (every 30min) - `llama3.1:8b`
-6. **Project Idea Generator** (every 6h) - `mistral:7b`
+Instead of having Claude write code from scratch ($0.77 per task):
 
-### Cost-Optimized Coding Workflow
+1. **Haiku → DeepSeek** (FREE) - DeepSeek writes 300 lines
+2. **Sonnet Reviews** ($0.12) - Suggests 25 lines of edits
+3. **Haiku Applies** ($0.01) - Applies fixes
 
-**The Strategy:** Use cheap models to write, expensive models to review.
-
-Instead of having Sonnet/Opus write code from scratch (expensive), use this 3-stage approach:
-
-1. **Stage 1: Haiku → DeepSeek Coder (FREE)**
-   - Haiku delegates long coding tasks to Ollama
-   - DeepSeek writes complete implementation (200-500 lines)
-   - Cost: $0.00 (local inference)
-
-2. **Stage 2: Sonnet Reviews & Optimizes**
-   - Sonnet reads existing code and suggests targeted edits
-   - Only writes 20-50 lines of fixes vs 200-500 from scratch
-   - Finds security issues, optimizations, improvements
-   - Cost: ~$0.12 (10x cheaper than full rewrite)
-
-3. **Stage 3: Haiku Applies Fixes**
-   - Haiku applies Sonnet's edits and runs tests
-   - Cost: ~$0.01
-
-**Result:** $0.77 → $0.13 per coding task (83% savings!)
-
-**Example:**
-```bash
-# User: "Build a REST API for user authentication"
-
-# Haiku delegates to DeepSeek
-→ DeepSeek writes 300 lines of code (FREE)
-
-# Sonnet reviews
-→ Suggests 25 lines of security fixes (~$0.12)
-
-# Haiku applies
-→ Edits code and runs tests (~$0.01)
-
-# Total: $0.13 vs $0.77 if Sonnet wrote from scratch
-```
-
-**See `CODING_WORKFLOW.md` for complete guide with templates and examples.**
-
-## Mac Mini Setup
-
-### Prerequisites
-
-- Mac Mini with macOS 12+ (Monterey or later)
-- Internet connection
-- Anthropic API key
-- GitHub account with SSH key configured
-
-### Quick Setup
-
-```bash
-# 1. Clone repositories
-mkdir -p ~/openclaw
-cd ~/openclaw
-git clone git@github.com:UnlimitedxIQ/openclaw-config.git workspace
-git clone git@github.com:UnlimitedxIQ/openclaw-agent-config.git agent-config
-
-# 2. Run setup script
-cd workspace
-chmod +x setup-mac.sh
-./setup-mac.sh
-
-# 3. Set API key
-export ANTHROPIC_API_KEY="your-key-here"
-echo 'export ANTHROPIC_API_KEY="your-key-here"' >> ~/.zshrc
-
-# 4. Copy agent config
-mkdir -p ~/.openclaw/agents/main
-cp -r ~/openclaw/agent-config/* ~/.openclaw/agents/main/agent/
-
-# 5. Create workspace symlink
-mkdir -p ~/agent
-ln -s ~/openclaw/workspace ~/agent/openclaw-workspace
-
-# 6. Start OpenClaw
-openclaw gateway
-```
-
-### Verification Steps
-
-```bash
-# Test Ollama models
-ollama list
-ollama run llama3.2:3b "Hello, test response"
-
-# Test OpenClaw
-openclaw agent --message "test ollama integration"
-
-# Check cron jobs
-openclaw cron list
-
-# Monitor logs
-openclaw logs --follow
-```
-
-## Repository Structure
-
-```
-openclaw-workspace/
-├── setup-mac.sh           # Mac setup automation
-├── README.md             # This file
-├── .gitignore            # Excludes secrets and runtime state
-├── CONSTITUTION.md       # Core principles
-├── SOUL.md              # Agent personality
-├── USER.md              # User context
-├── AGENTS.md            # Agent roster
-├── TOOLS.md             # Tool usage guidelines
-├── STARTUP.md           # Boot sequence
-├── HEARTBEAT.md         # Heartbeat behavior
-├── MEMORY.md            # Memory management
-├── memory/              # Daily memory logs
-│   └── *.md
-├── orchestrator/        # Task system
-│   ├── manager/
-│   ├── queue/
-│   └── specialists/
-└── scripts/             # Utility scripts
-    └── *.py
-```
-
-## Cost Analysis
-
-### Before (Windows, All Anthropic)
-- Heartbeats: ~$1.44/month
-- Research: ~$1.20/month
-- Coding tasks (10/day): ~$231/month (Sonnet from scratch)
-- User interactions: ~$50/month
-- **Total: ~$334.64/month**
-
-### After (Mac Mini, Ollama + Anthropic)
-
-**Background Workers:**
-- Heartbeats: FREE (Ollama)
-- Research scanning: FREE (Ollama)
-- Code analysis: FREE (Ollama)
-- Memory compaction: FREE (Ollama)
-- Idea generation: FREE (Ollama)
-
-**Coding Workflow (Ollama → Sonnet Review):**
-- Initial code: FREE (DeepSeek Coder via Ollama)
-- Review & optimize: ~$78/month (Sonnet edits only, not full rewrites)
-- Apply fixes: ~$3/month (Haiku)
-- **Coding total: ~$81/month** (vs $231 = 65% savings)
-
-**User Interactions:**
-- Drafts: FREE (Ollama)
-- Final polish: ~$30/month (Claude)
-
-**Total: ~$111/month**
-
-### Savings Breakdown
-- **Background automation:** $22.64/month saved
-- **Coding workflow optimization:** $150/month saved (Ollama writes, Sonnet reviews)
-- **Monthly total savings: ~$172.64/month**
-- **Annual total savings: ~$2,072/year** 🎉
-
-**See `CODING_WORKFLOW.md` for detailed 3-stage coding optimization strategy.**
+**Result:** $0.13 per task (83% savings!)
 
 ## Configuration Files
 
-### Main Config: `~/.openclaw/openclaw.json`
+### Personal Files (Not in Repo)
+These files contain your personal information and are protected by `.gitignore`:
+- `CONSTITUTION.md` - Your rules and constraints
+- `USER.md` - Your profile and preferences
+- `MEMORY.md` - Your accumulated learnings
+- `STARTUP.md` - Your startup configuration
 
-Contains:
-- Model routing rules
-- Ollama integration settings
-- Authentication profiles (gitignored)
-- Skill configurations
-- Gateway settings
+Use the `.example` templates to create these files.
 
-### Cron Jobs: `~/.openclaw/cron/jobs.json`
+### Configuration Templates
+- `openclaw.json.example` - OpenClaw configuration
+- `cron-jobs.json.example` - Background worker schedules
+- `.env.example` - API keys template
 
-Contains:
-- All scheduled background tasks
-- Model assignments for each job
-- Schedule definitions (cron or interval)
+## System Requirements
 
-### Agent Identity: `~/.openclaw/agents/main/agent/`
+**Minimum:**
+- macOS 12+ or Ubuntu 20.04+
+- 16GB RAM
+- 15GB free disk space
+- Stable internet connection
 
-Contains:
-- `IDENTITY.md` - Agent identity
-- `SOUL.md` - Agent personality
-- `auth-profiles.json` - API keys (gitignored)
+**Recommended:**
+- macOS 14+ or Ubuntu 22.04+
+- 32GB RAM (for running multiple models simultaneously)
+- 50GB free disk space
+- 24/7 uptime (Mac Mini, home server, VPS)
 
-## Security
+## Supported Ollama Models
 
-**Files to NEVER commit:**
-- `auth-profiles.json` - Contains API keys
-- `*.env` - Environment variables
-- `*-inbox.jsonl` / `*-outbox.jsonl` - Runtime message queues
-- `*.sqlite` - Databases
-- `credentials/**` - Any credential files
+This configuration uses these models (automatically installed by `setup-mac.sh`):
+- `llama3.2:3b` (~2GB) - Fast, lightweight
+- `llama3.1:8b` (~4.7GB) - Balanced performance
+- `mistral:7b` (~4.1GB) - Creative tasks
+- `deepseek-coder-v2:16b` (~8.9GB) - Code-specialized
+- `nomic-embed-text` (~274MB) - Embeddings
 
-**Safe to commit:**
-- Configuration files with secrets redacted
-- Workspace markdown files
-- Scripts (without embedded tokens)
-- Cron job definitions (without API keys)
-
-## Maintenance
-
-### Updating Configuration
-
-```bash
-# On Mac Mini
-cd ~/openclaw/workspace
-git pull
-openclaw restart
-```
-
-### Pushing Changes
-
-```bash
-# On Windows or Mac
-cd /c/agent/openclaw-workspace  # Windows
-# or
-cd ~/openclaw/workspace  # Mac
-
-git add .
-git commit -m "Description of changes"
-git push
-```
-
-### Monitoring
-
-```bash
-# View active jobs
-openclaw cron list
-
-# View recent job runs
-openclaw cron runs
-
-# Check agent status
-openclaw status
-
-# View logs
-openclaw logs --tail 100
-```
+**Total:** ~20GB
 
 ## Troubleshooting
 
-### Ollama not responding
+### Ollama Not Starting
 ```bash
-# Check if Ollama is running
+# Check service
 brew services list
 
 # Restart Ollama
 brew services restart ollama
 
 # Test manually
-ollama list
+ollama serve
 ```
 
-### Models not found
+### Models Not Loading
 ```bash
-# Pull missing models
+# Re-pull models
 ollama pull llama3.2:3b
 ollama pull llama3.1:8b
 ollama pull mistral:7b
 ollama pull deepseek-coder-v2:16b
 ```
 
-### Authentication errors
+### High CPU Usage
 ```bash
-# Verify API key is set
-echo $ANTHROPIC_API_KEY
+# Check loaded models
+ollama ps
 
-# Re-add to shell profile
-echo 'export ANTHROPIC_API_KEY="your-key-here"' >> ~/.zshrc
-source ~/.zshrc
+# Unload unused models
+ollama stop mistral:7b
 ```
 
-### Cron jobs not running
-```bash
-# Check job status
-openclaw cron list
+See [MIGRATION_GUIDE.md](MIGRATION_GUIDE.md) for more troubleshooting.
 
-# Enable disabled jobs
-openclaw cron enable <job-id>
+## Contributing
 
-# Check logs for errors
-openclaw logs | grep ERROR
-```
+We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
-## Support
-
-For issues or questions:
-1. Check logs: `openclaw logs --follow`
-2. Review cron status: `openclaw cron list`
-3. Test Ollama: `ollama list`
-4. Check GitHub issues (if using GitHub)
+**Ways to help:**
+- Report issues and share solutions
+- Improve documentation
+- Add new background workers
+- Optimize cost strategies
+- Create tutorials
 
 ## License
 
-Private repository - All rights reserved.
+MIT License - see [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- Built on [OpenClaw](https://openclaw.com/)
+- Uses [Ollama](https://ollama.ai/) for local inference
+- Powered by [Claude](https://claude.ai/) for complex reasoning
+
+## Support
+
+- **Issues:** [GitHub Issues](https://github.com/UnlimitedxIQ/openclaw-starter-kit/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/UnlimitedxIQ/openclaw-starter-kit/discussions)
+- **Documentation:** See docs linked above
+
+---
+
+**Save $2,000+/year on AI costs. Get started in under an hour.** 🚀
