@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openclaw.local/schema/optimizer.output.json",
+  "title": "OptimizerReport",
+  "type": "object",
+  "properties": {
+    "meta": {
+      "type": "object",
+      "properties": {
+        "agent": { "type": "string" },
+        "version": { "type": "string" },
+        "generatedAt": { "type": "string" }
+      },
+      "required": ["agent", "version", "generatedAt"],
+      "additionalProperties": true
+    },
+    "inputSummary": { "type": "object", "additionalProperties": true },
+    "workflow": {
+      "type": "object",
+      "properties": {
+        "workflowName": { "type": "string" },
+        "goal": { "type": "string" },
+        "steps": { "type": "array", "items": { "type": "object" } }
+      },
+      "required": ["steps"],
+      "additionalProperties": true
+    },
+    "bottlenecks": { "type": "array", "items": { "type": "object" } },
+    "recommendations": { "type": "array", "items": { "type": "object" } },
+    "actionPlan": { "type": "object", "additionalProperties": true },
+    "assumptions": { "type": "object", "additionalProperties": true }
+  },
+  "required": ["meta", "workflow", "bottlenecks", "recommendations", "actionPlan", "assumptions"],
+  "additionalProperties": true
+}

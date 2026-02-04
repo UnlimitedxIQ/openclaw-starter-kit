@@ -1,0 +1,14 @@
+{
+  "name": "openclaw-orchestrator",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Durable task orchestrator for Noble/OpenClaw (JSONL event log + approvals + sub-agent sessions)",
+  "scripts": {
+    "start": "node ./src/index.js run",
+    "status": "node ./src/index.js status"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

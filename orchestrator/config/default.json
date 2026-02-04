@@ -1,0 +1,22 @@
+{
+  "http": {
+    "host": "127.0.0.1",
+    "port": 3879
+  },
+  "dispatcher": {
+    "pollIntervalMs": 1000,
+    "leaseMs": 60000,
+    "maxConcurrentTasks": 2
+  },
+  "storage": {
+    "eventsPath": "state/events.jsonl",
+    "snapshotPath": "state/snapshot.json",
+    "snapshotEveryEvents": 200
+  },
+  "routing": {
+    "defaultRoute": "planner"
+  },
+  "openclaw": {
+    "provider": "stub"
+  }
+}

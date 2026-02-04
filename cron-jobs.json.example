@@ -1,0 +1,194 @@
+{
+  "version": 1,
+  "jobs": [
+    {
+      "id": "daily-checkin",
+      "agentId": "main",
+      "name": "Daily 9am Bryson check-in",
+      "enabled": true,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 9 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "main",
+      "wakeMode": "next-heartbeat",
+      "payload": {
+        "kind": "systemEvent",
+        "text": "Reminder (daily): Call Bryson for the 9:00 AM check-in. Ask a few quick questions and capture anything important for memory/next steps."
+      }
+    },
+    {
+      "id": "money-research-feeder",
+      "agentId": "main",
+      "name": "Money research feeder (enqueue ideas)",
+      "enabled": true,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 21600000
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "next-heartbeat",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "You are the Money Research feeder.\n\nFollow: C:\\agent\\openclaw-workspace\\orchestrator\\manager\\MONEY_RESEARCH.md\n\nDo one tick:\n1) Read money_state.json.\n2) Use web_search to find 3–5 recent, legit opportunities for AI automation monetization (no scams).\n3) Pick the best 1–3 ideas with scores.\n4) Append each as a JSONL task into orchestrator/queue/inbox.jsonl.\n5) Update money_state.json (lastRunAt + recentTitles capped to 20).\n\nDo NOT message anyone. Just enqueue.\nIf nothing good found, enqueue nothing but still update lastRunAt.",
+        "thinking": "low",
+        "timeoutSeconds": 120,
+        "model": "ollama/llama3.1:8b"
+      }
+    },
+    {
+      "id": "dashboard-credits-refresh",
+      "agentId": "main",
+      "name": "Dashboard credits refresh",
+      "enabled": true,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 3600000
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "next-heartbeat",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Update the dashboard credits cache.\n- Run: python C:\\Users\\bryso\\USB-NOBLECLAW\\dashboard\\update_credits.py\n- Do not attempt any browser logins.\n- If it fails, report error in chat.",
+        "thinking": "low",
+        "timeoutSeconds": 60
+      }
+    },
+    {
+      "id": "code-analysis-worker",
+      "agentId": "main",
+      "name": "Code analysis worker (Ollama)",
+      "enabled": true,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 7200000
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "next-heartbeat",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "You are the Code Analysis Worker using DeepSeek Coder.\n\nAnalyze workspace code for:\n1) Potential bugs or security issues\n2) Performance optimization opportunities\n3) Code quality improvements\n4) Documentation gaps\n\nFocus on:\n- C:\\agent\\openclaw-workspace\\scripts\\**\\*.py\n- C:\\agent\\openclaw-workspace\\orchestrator\\**\\*.md\n- Recent changes (check git log if available)\n\nFor any findings:\n1) Create a brief summary report\n2) Enqueue high-priority issues to orchestrator/queue/inbox.jsonl\n3) Log low-priority suggestions to memory\n\nUse code reading tools, NOT exec/PowerShell.\nKeep analysis under 2 minutes.",
+        "thinking": "low",
+        "timeoutSeconds": 120,
+        "model": "ollama/deepseek-coder-v2:16b"
+      }
+    },
+    {
+      "id": "daily-memory-compaction",
+      "agentId": "main",
+      "name": "Daily memory compaction (Ollama)",
+      "enabled": true,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 23 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "next-heartbeat",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "You are the Memory Compaction Worker using Llama 3.1 8B.\n\nTask: Summarize today's memory log and update MEMORY.md\n\n1) Read today's memory file: C:\\agent\\openclaw-workspace\\memory\\YYYY-MM-DD.md\n2) Extract key insights, decisions, and learnings\n3) Read current MEMORY.md\n4) Append new insights to MEMORY.md in a concise format\n5) Keep MEMORY.md under 200 lines (remove old/redundant entries if needed)\n\nFocus on:\n- Important decisions made\n- Problems solved and solutions found\n- New patterns or workflows discovered\n- Action items for tomorrow\n\nUse file reading tools, NOT exec/PowerShell.\nKeep compaction under 2 minutes.",
+        "thinking": "low",
+        "timeoutSeconds": 120,
+        "model": "ollama/llama3.1:8b"
+      }
+    },
+    {
+      "id": "research-queue-processor",
+      "agentId": "main",
+      "name": "Research queue processor (Ollama)",
+      "enabled": true,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 1800000
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "next-heartbeat",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "You are the Research Queue Processor using Llama 3.1 8B.\n\nProcess research tasks from orchestrator inbox:\n\n1) Read C:\\agent\\openclaw-workspace\\orchestrator\\queue\\inbox.jsonl\n2) For each task with type='research':\n   a) Claim by moving to processing/\n   b) Perform initial research (web_search, basic summarization)\n   c) Generate summary and key findings\n   d) If needs deeper analysis, enqueue follow-up task\n   e) Mark as complete or forward to specialist\n\n3) Update processing state\n\nLimitations:\n- Handle max 3 tasks per run\n- Keep each task under 2 minutes\n- Use web_search sparingly (max 2 searches per task)\n\nUse file tools, NOT exec/PowerShell.",
+        "thinking": "low",
+        "timeoutSeconds": 180,
+        "model": "ollama/llama3.1:8b"
+      }
+    },
+    {
+      "id": "project-idea-generator",
+      "agentId": "main",
+      "name": "Project idea generator (Ollama)",
+      "enabled": true,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 21600000
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "next-heartbeat",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "You are the Project Idea Generator using Mistral 7B.\n\nBrainstorm monetization ideas based on recent learnings:\n\n1) Read recent memory logs (last 3 days)\n2) Review MEMORY.md for patterns and skills\n3) Review recent research from orchestrator/queue/\n4) Generate 2-3 actionable project ideas that:\n   - Leverage existing skills/tools\n   - Have clear monetization path\n   - Can start with minimal investment\n   - Solve real problems\n\n5) For each idea:\n   - Brief description (2-3 sentences)\n   - Monetization strategy\n   - Rough effort estimate\n   - Required resources\n\n6) Enqueue top idea to orchestrator/queue/inbox.jsonl for evaluation\n7) Log all ideas to memory for future reference\n\nBe creative but practical. Focus on quick wins.\nUse file tools, NOT exec/PowerShell.",
+        "thinking": "low",
+        "timeoutSeconds": 120,
+        "model": "ollama/mistral:7b"
+      }
+    },
+    {
+      "id": "orchestrator-manager",
+      "agentId": "main",
+      "name": "Orchestrator manager (always-on)",
+      "enabled": false,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 60000
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "next-heartbeat",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "You are the Orchestrator Manager.\n\nRead and follow: C:\\agent\\openclaw-workspace\\orchestrator\\manager\\INSTRUCTIONS.md\n\nDo one tick:\n1) Read state.json\n2) Read inbox.jsonl\n3) Process new tasks (claim, spawn specialists)\n4) Update state\n\nUse OpenClaw tools ONLY, NOT exec/PowerShell.",
+        "thinking": "low",
+        "timeoutSeconds": 50,
+        "deliver": false
+      },
+      "note": "Disabled until auth is configured properly"
+    },
+    {
+      "id": "telegram-outbox-drainer",
+      "agentId": "main",
+      "name": "Telegram outbox drainer",
+      "enabled": false,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 3000
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "next-heartbeat",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Drain gateway-agent telegram outbox.\n\nSteps:\n1) Read telegram-outbox.jsonl\n2) Send messages via Telegram\n3) Clear sent messages\n\nUse OpenClaw tools ONLY.",
+        "thinking": "low",
+        "timeoutSeconds": 30
+      },
+      "note": "Disabled until auth is configured properly"
+    },
+    {
+      "id": "agent-inbox-drainer",
+      "agentId": "main",
+      "name": "Agent inbox drainer",
+      "enabled": false,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 2000
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "next-heartbeat",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Drain dashboard agent inbox.\n\nSteps:\n1) Read agent-inbox.jsonl\n2) Inject into main session\n3) Clear processed messages\n\nUse OpenClaw tools ONLY.",
+        "thinking": "low",
+        "timeoutSeconds": 25
+      },
+      "note": "Disabled until auth is configured properly"
+    }
+  ]
+}

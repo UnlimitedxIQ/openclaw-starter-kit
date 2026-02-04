@@ -1,0 +1,205 @@
+{
+  "meta": {
+    "lastTouchedVersion": "2026.2.2-3",
+    "lastTouchedAt": "2026-02-04T19:07:09.194Z"
+  },
+  "wizard": {
+    "lastRunAt": "2026-02-04T18:39:21.247Z",
+    "lastRunVersion": "2026.2.1",
+    "lastRunCommand": "doctor",
+    "lastRunMode": "local"
+  },
+  "auth": {
+    "profiles": {
+      "anthropic:default": {
+        "provider": "anthropic",
+        "mode": "api_key"
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "anthropic/claude-haiku-4-5"
+      },
+      "models": {
+        "anthropic/claude-opus-4-5": {
+          "alias": "opus",
+          "params": {
+            "cacheRetention": "long"
+          }
+        },
+        "anthropic/claude-sonnet-4-5": {
+          "alias": "sonnet",
+          "params": {
+            "cacheRetention": "long"
+          }
+        },
+        "anthropic/claude-haiku-4-5": {
+          "alias": "haiku",
+          "params": {
+            "cacheRetention": "short"
+          }
+        },
+        "ollama/llama3.2:3b": {
+          "alias": "ollama-fast",
+          "params": {
+            "temperature": 0.7
+          }
+        },
+        "ollama/llama3.1:8b": {
+          "alias": "ollama-research",
+          "params": {
+            "temperature": 0.8
+          }
+        },
+        "ollama/mistral:7b": {
+          "alias": "ollama-creative",
+          "params": {
+            "temperature": 0.9
+          }
+        },
+        "ollama/deepseek-coder-v2:16b": {
+          "alias": "ollama-code",
+          "params": {
+            "temperature": 0.5
+          }
+        }
+      },
+      "routing": {
+        "patterns": [
+          {
+            "match": "heartbeat|check-in|status|ping",
+            "model": "ollama/llama3.2:3b",
+            "comment": "Fast, local model for routine checks"
+          },
+          {
+            "match": "code|review|debug|analyze|refactor",
+            "model": "ollama/deepseek-coder-v2:16b",
+            "comment": "Code-specialized model for development tasks"
+          },
+          {
+            "match": "research|summarize|scan|investigate",
+            "model": "ollama/llama3.1:8b",
+            "comment": "Good comprehension for research tasks"
+          },
+          {
+            "match": "draft|idea|brainstorm|generate",
+            "model": "ollama/mistral:7b",
+            "comment": "Fast, creative model for ideation"
+          }
+        ]
+      },
+      "workspace": "/path/to/openclaw-workspace",
+      "memorySearch": {
+        "provider": "local",
+        "fallback": "none",
+        "local": {
+          "modelPath": "hf:ggml-org/embeddinggemma-300M-GGUF/embeddinggemma-300M-Q8_0.gguf"
+        },
+        "sync": {
+          "watch": true,
+          "watchDebounceMs": 1500
+        }
+      },
+      "contextPruning": {
+        "mode": "cache-ttl",
+        "ttl": "1h"
+      },
+      "compaction": {
+        "mode": "safeguard"
+      },
+      "heartbeat": {
+        "every": "1h",
+        "model": "ollama/llama3.2:3b",
+        "prompt": "Check: Any blockers, opportunities, or progress updates needed?"
+      },
+      "maxConcurrent": 4,
+      "subagents": {
+        "maxConcurrent": 8
+      }
+    },
+    "list": [
+      {
+        "id": "main"
+      }
+    ]
+  },
+  "messages": {
+    "ackReactionScope": "group-mentions"
+  },
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto"
+  },
+  "hooks": {
+    "internal": {
+      "enabled": true,
+      "entries": {
+        "boot-md": {
+          "enabled": true
+        },
+        "command-logger": {
+          "enabled": true
+        },
+        "session-memory": {
+          "enabled": true
+        }
+      }
+    }
+  },
+  "channels": {
+    "telegram": {
+      "enabled": true,
+      "dmPolicy": "pairing",
+      "botToken": "TELEGRAM_BOT_TOKEN_HERE",
+      "groupPolicy": "allowlist",
+      "streamMode": "partial"
+    }
+  },
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "bind": "loopback",
+    "auth": {
+      "mode": "token",
+      "token": "GENERATE_RANDOM_TOKEN_HERE"
+    },
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    }
+  },
+  "skills": {
+    "install": {
+      "nodeManager": "npm"
+    },
+    "entries": {
+      "goplaces": {
+        "apiKey": "YOUR_GOPLACES_API_KEY"
+      },
+      "notion": {
+        "apiKey": "YOUR_NOTION_API_KEY"
+      },
+      "openai-image-gen": {
+        "apiKey": "YOUR_OPENAI_API_KEY"
+      },
+      "openai-whisper-api": {
+        "apiKey": "YOUR_OPENAI_API_KEY"
+      },
+      "sag": {
+        "apiKey": "YOUR_SAG_API_KEY"
+      }
+    }
+  },
+  "plugins": {
+    "entries": {
+      "telegram": {
+        "enabled": true
+      },
+      "memory-core": {
+        "enabled": true
+      }
+    }
+  }
+}

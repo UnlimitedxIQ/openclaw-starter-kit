@@ -1,0 +1,13 @@
+{
+  "name": "optimizer",
+  "version": "1.0.0",
+  "description": "Workflow optimizer: finds bottlenecks, proposes automations, prioritizes high-leverage actions, estimates ROI.",
+  "entry": "./index.js",
+  "capabilities": [
+    "analyze_workflow",
+    "identify_bottlenecks",
+    "propose_automations",
+    "prioritize_by_roi",
+    "produce_action_plan"
+  ]
+}

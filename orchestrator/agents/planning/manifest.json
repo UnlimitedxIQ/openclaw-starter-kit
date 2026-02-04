@@ -1,0 +1,13 @@
+{
+  "name": "planning",
+  "version": "1.0.0",
+  "description": "Planning agent: goal → milestones, tasks, dependencies, and a weekly/daily agenda; persists plans.",
+  "entry": "./index.js",
+  "capabilities": [
+    "plan_from_goal",
+    "milestones_and_tasks",
+    "dependency_mapping",
+    "weekly_daily_agenda",
+    "plan_persistence"
+  ]
+}

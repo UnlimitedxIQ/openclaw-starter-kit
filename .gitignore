@@ -1,0 +1,64 @@
+# Secrets and Authentication
+auth-profiles.json
+.env
+.env.local
+.env.production
+**/credentials/**
+identity/device-auth.json
+**/apiKeys.json
+**/*-token.txt
+
+# Allow .env.example template
+!.env.example
+
+# Runtime State
+*-outbox.jsonl
+*-inbox.jsonl
+*.sqlite
+*.sqlite3
+*.db
+*.bak
+*.backup
+ngrok_requests*.json
+_tmp_*.json
+tmp/
+**/processing/*.json
+**/state/*.json
+**/cache/*.json
+
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+
+# System Files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Build outputs
+dist/
+build/
+*.egg-info/
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Logs
+*.log
+logs/
+
+# Test files
+test-*.json
+*.test.js
+
+# Temporary files
+scratch/
+sandbox/

@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "sequences": [
+    {
+      "id": "warm-followup",
+      "name": "Warm follow-up (4 touches)",
+      "description": "Simple warm follow-up sequence for someone who already knows you.",
+      "defaultChannel": "email",
+      "steps": [
+        {
+          "offsetDays": 0,
+          "channel": "email",
+          "subjectTemplate": "Quick catch-up, {{firstName}}?",
+          "bodyTemplate": "Hi {{firstName}},\n\nHope you’ve been well. {{context}}\n\nIf you’re open to it, I’d love to do a quick {{callLengthMinutes}}-minute catch-up this week or next. {{ask}}\n\nBest,\n{{senderName}}"
+        },
+        {
+          "offsetDays": 3,
+          "channel": "email",
+          "subjectTemplate": "Re: Quick catch-up",
+          "bodyTemplate": "Hi {{firstName}} — just bumping this in case it got buried.\n\nTotally flexible on timing. If it’s easier, feel free to suggest a couple windows that work for you.\n\nBest,\n{{senderName}}"
+        },
+        {
+          "offsetDays": 7,
+          "channel": "email",
+          "subjectTemplate": "One more ping",
+          "bodyTemplate": "Hi {{firstName}},\n\nOne more ping here. If now isn’t a good time, no worries — happy to reconnect later.\n\nIf helpful, here are two options: {{timeOption1}} or {{timeOption2}}.\n\nBest,\n{{senderName}}"
+        },
+        {
+          "offsetDays": 14,
+          "channel": "email",
+          "subjectTemplate": "Closing the loop",
+          "bodyTemplate": "Hi {{firstName}},\n\nI’m going to close the loop for now. If/when you want to reconnect, I’m easy to reach.\n\nBest,\n{{senderName}}"
+        }
+      ]
+    },
+    {
+      "id": "cold-outreach",
+      "name": "Cold outreach (3 touches)",
+      "description": "Short, respectful cold outreach with fast opt-out.",
+      "defaultChannel": "email",
+      "steps": [
+        {
+          "offsetDays": 0,
+          "channel": "email",
+          "subjectTemplate": "{{firstName}} — quick question",
+          "bodyTemplate": "Hi {{firstName}},\n\nReaching out because {{reason}}.\n\nIf it’s relevant, I’d love to share {{valueProp}} and ask one quick question.\n\nOpen to a short {{callLengthMinutes}}-minute call next week?\n\nBest,\n{{senderName}}\n\nPS: If I missed the mark, happy to drop it."
+        },
+        {
+          "offsetDays": 4,
+          "channel": "email",
+          "subjectTemplate": "Re: quick question",
+          "bodyTemplate": "Hi {{firstName}},\n\nJust following up. Should I talk to you or someone else on your team about {{topic}}?\n\nBest,\n{{senderName}}"
+        },
+        {
+          "offsetDays": 10,
+          "channel": "email",
+          "subjectTemplate": "Last note",
+          "bodyTemplate": "Hi {{firstName}},\n\nLast note from me — I know inboxes are busy. If it’s not a fit, no worries at all.\n\nBest,\n{{senderName}}"
+        }
+      ]
+    }
+  ]
+}
